@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Mvc.RazorPages
+@model IEnumerable<Themeproj.Models.Theme>
+
+<h2>Themes</h2>
+
+<ul>
+    @foreach (var theme in Model)
+    {
+        <li>@Html.ActionLink(theme.Name, "Choose", "Theme", new { id = theme.Id }, null)</li>
+    }
+</ul>

@@ -1,0 +1,51 @@
+﻿@model Themeproj.Models.ThemePosts
+@{
+    ViewData["Title"] = "Choose";
+}
+<div class="flex-row" style="display: flex; justify-content: space-between">
+    <h2>@Model.Theme.Name</h2>
+    <h4>@Model.Theme.Description</h4>
+    <form asp-action="Delete" asp-controller="Theme" method="post">
+        <input type="hidden" name="id" value="@Model.Theme.Id">
+        <input type="submit" style="color: lightcoral" value="Delete">
+    </form>
+</div>
+<a asp-action="ThemeList">Back to theme list</a>
+<table>
+    <tr>
+        <th>Annotation</th>
+        <th>Text</th>
+        <th>Author</th>
+        <th>Publication Date</th>
+        <th>Comments</th>
+    </tr>
+    @foreach (var item in Model.Posts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Annotation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicationDate)
+            </td>
+            <td>
+                <ul>
+                    <li>@Html.ActionLink("Check comments", "CommentList", "Comment", new { id = item.Id }, null)</li>
+                </ul>
+                
+            </td>
+        </tr>
+    }
+</table>
+
+
+<form asp-action="CreatePost" asp-controller="Post" method="get">
+    <input type="hidden" name="id" value="@Model.Theme.Id">
+    <input type="submit" style="color: lightcoral" value="Create Post">
+</form>

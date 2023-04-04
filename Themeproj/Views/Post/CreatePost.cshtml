@@ -1,0 +1,44 @@
+﻿@model Themeproj.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Theme</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreatePost">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Annotation" class="control-label"></label>
+                <input asp-for="Annotation" class="form-control" />
+                <span asp-validation-for="Annotation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThemeId" class="control-label" hidden></label>
+                <input asp-for="ThemeId" class="form-control" value="@Model.ThemeId" hidden />
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" value="@User.Identity.Name" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationDate" class="control-label"></label>
+                <input asp-for="PublicationDate" class="form-control" />
+                <span asp-validation-for="PublicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

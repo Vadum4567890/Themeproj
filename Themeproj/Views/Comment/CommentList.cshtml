@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Themeproj.Models.PostComments
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<div style="display: flex; justify-content: space-between;">
+    <h3>@Model.Post.Author</h3>
+    <h3>@Model.Post.Annotation</h3>
+    <h3>@Model.Post.Text</h3>
+    <h4>@Model.Post.PublicationDate</h4>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Author
+        </th>
+        <th>
+            Text
+        </th>
+        <th>
+            Date
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Comments) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <form asp-action="Delete" asp-controller="Comment" method="post">
+                <input type="hidden" name="id" value="@item.Id">
+                <input type="submit" style="color: lightcoral" value="Delete">
+            </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+<h4>Write a comment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateComment" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NewComment.Author" class="control-label"></label>
+                <input asp-for="NewComment.Author" class="form-control" value="@User.Identity.Name" />
+                <span asp-validation-for="NewComment.Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewComment.PostId" class="control-label" hidden></label>
+                <input asp-for="NewComment.PostId" class="form-control" value="@Model.NewComment.PostId" hidden />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewComment.Text" class="control-label"></label>
+                <input asp-for="NewComment.Text" class="form-control" />
+                <span asp-validation-for="NewComment.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" style="color: lightcoral" value="Create Comment">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
